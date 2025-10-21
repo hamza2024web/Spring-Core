@@ -24,7 +24,7 @@ public class PersistenceConfig {
     public DataSource dataSource(){
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setDriverClassName("org.h2.Driver");
-        dataSource.setUrl("jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1");
+        dataSource.setUrl("jdbc:postgresql://db:5432/springdb");
         dataSource.setUsername("sa");
         dataSource.setPassword("");
         return dataSource;
