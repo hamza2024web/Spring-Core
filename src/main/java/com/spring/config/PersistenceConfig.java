@@ -18,15 +18,13 @@ import java.util.Properties;
 @EnableTransactionManagement
 public class PersistenceConfig {
 
-
-
     @Bean
     public DataSource dataSource(){
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
-        dataSource.setDriverClassName("org.h2.Driver");
+        dataSource.setDriverClassName("org.postgresql.Driver");
         dataSource.setUrl("jdbc:postgresql://db:5432/springdb");
-        dataSource.setUsername("sa");
-        dataSource.setPassword("");
+        dataSource.setUsername("springuser");
+        dataSource.setPassword("springpass");
         return dataSource;
     }
 
@@ -39,7 +37,7 @@ public class PersistenceConfig {
 
         Properties jpaProperties = new Properties();
         jpaProperties.setProperty("hibernate.hbm2ddl.auto", "update");
-        jpaProperties.setProperty("hibernate.dialect", "org.hibernate.dialect.H2Dialect");
+        jpaProperties.setProperty("hibernate.dialect", "org.hibernate.dialect.PostgreSQLDialect");
         jpaProperties.setProperty("hibernate.show_sql", "true");
         em.setJpaProperties(jpaProperties);
 
