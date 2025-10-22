@@ -41,4 +41,9 @@ public class UserController {
         User updated = userService.updateUser(id,userData);
         return new UserDTO(updated.getId(),updated.getName(),updated.getEmail());
     }
+
+    @GetMapping("/id")
+    public UserDTO deleteUser(@PathVariable Long id){
+        userService.deleteById(id);
+    }
 }
