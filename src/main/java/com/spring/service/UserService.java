@@ -29,4 +29,8 @@ public class UserService {
     public List<UserDTO> findAllDto(){
         return userRepository.findAll().stream().map(user -> new UserDTO(user.getId() , user.getName() , user.getEmail())).toList();
     }
+
+    public User findById(Long id){
+        return userRepository.findById(id).orElseThrow(() -> new RuntimeException("User not found"));
+    }
 }

@@ -29,4 +29,10 @@ public class UserController {
         User saved = userService.save(user);
         return new UserDTO(saved.getId(),saved.getName(),saved.getEmail());
     }
+
+    @GetMapping("/id")
+    public UserDTO getUSerById(@PathVariable Long id){
+        User user = userService.findById(id);
+        return new UserDTO(user.getId(),user.getName(),user.getEmail());
+    }
 }
