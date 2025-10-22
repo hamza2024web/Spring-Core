@@ -31,8 +31,14 @@ public class UserController {
     }
 
     @GetMapping("/id")
-    public UserDTO getUSerById(@PathVariable Long id){
+    public UserDTO getUserById(@PathVariable Long id){
         User user = userService.findById(id);
         return new UserDTO(user.getId(),user.getName(),user.getEmail());
+    }
+
+    @PutMapping("/id")
+    public UserDTO updateUser(@PathVariable Long id,@RequestBody User userData){
+        User updated = userService.updateUser(id,userData);
+        return new UserDTO(updated.getId(),updated.getName(),updated.getEmail());
     }
 }
