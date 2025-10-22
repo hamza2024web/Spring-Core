@@ -1,5 +1,6 @@
 package com.spring.service;
 
+import com.spring.dto.UserDTO;
 import com.spring.entity.User;
 import com.spring.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,5 +24,9 @@ public class UserService {
 
     public User save(User user){
         return userRepository.save(user);
+    }
+
+    public List<UserDTO> findAllDto(){
+        return userRepository.findAll().stream().map(user -> new UserDTO(user.getId() , user.getName() , user.getEmail())).toList();
     }
 }

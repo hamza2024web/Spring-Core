@@ -1,5 +1,6 @@
 package com.spring.controller;
 
+import com.spring.dto.UserDTO;
 import com.spring.entity.User;
 import com.spring.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,12 +20,13 @@ public class UserController {
     }
 
     @GetMapping
-    public List<User> getAllUsers(){
-        return userService.findAll();
+    public List<UserDTO> getAllUsers(){
+        return userService.findAllDto();
     }
 
     @PostMapping
-    public User createUser(@RequestBody User user){
-        return userService.save(user);
+    public UserDTO createUser(@RequestBody User user){
+        User saved = userService.save(user);
+        return new UserDTO(saved.getId(),saved.getName(),saved.getEmail());
     }
 }
