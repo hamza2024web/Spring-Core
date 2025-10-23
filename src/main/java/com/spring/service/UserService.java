@@ -4,6 +4,9 @@ import com.spring.dto.UserDTO;
 import com.spring.entity.User;
 import com.spring.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -55,5 +58,17 @@ public class UserService {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Email ou mot de passe incorrect");
         }
         return user;
+    }
+
+    public Page<UserDTO> getAllActiveUsers(int page , int size){
+        Pageable pageable = PageRequest.of(page,size);
+        Page<User> userPage = userRepository.findByActiveTrue(pageable);
+        return userPage.map(user -> new UserDTO (
+                user.getId(),
+                user.getName(),
+                user.getEmail(),
+                user.getRole(),
+                user.getActive()
+        ));
     }
 }
