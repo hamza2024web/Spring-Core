@@ -27,7 +27,7 @@ public class UserService {
     }
 
     public List<UserDTO> findAllDto(){
-        return userRepository.findAll().stream().map(user -> new UserDTO(user.getId() , user.getName() , user.getEmail())).toList();
+        return userRepository.findAll().stream().map(user -> new UserDTO(user.getId() , user.getName() , user.getEmail() , user.getRole() , user.getActive())).toList();
     }
 
     public User findById(Long id){

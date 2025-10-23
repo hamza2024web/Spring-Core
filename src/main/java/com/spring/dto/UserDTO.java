@@ -1,16 +1,22 @@
 package com.spring.dto;
 
+import com.spring.entity.Role;
+
 public class UserDTO {
     private Long id;
     private String name;
     private String email;
+    private Role role;
+    private Boolean active;
 
     public UserDTO() {}
 
-    public UserDTO(Long id , String name , String email) {
+    public UserDTO(Long id , String name , String email , Role role , Boolean active) {
         this.id = id;
         this.name = name;
         this.email = email;
+        this.role = role;
+        this.active = active;
     }
 
     public Long getId() {
@@ -35,5 +41,21 @@ public class UserDTO {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
+
+    public Boolean getActive() {
+        return active;
+    }
+
+    public void setActive(Boolean active) {
+        this.active = active;
     }
 }
