@@ -4,6 +4,7 @@ import com.spring.dto.UserDTO;
 import com.spring.entity.User;
 import com.spring.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -30,20 +31,21 @@ public class UserController {
         return new UserDTO(saved.getId(),saved.getName(),saved.getEmail());
     }
 
-    @GetMapping("/id")
+    @GetMapping("/{id}")
     public UserDTO getUserById(@PathVariable Long id){
         User user = userService.findById(id);
         return new UserDTO(user.getId(),user.getName(),user.getEmail());
     }
 
-    @PutMapping("/id")
+    @PutMapping("/{id}")
     public UserDTO updateUser(@PathVariable Long id,@RequestBody User userData){
         User updated = userService.updateUser(id,userData);
         return new UserDTO(updated.getId(),updated.getName(),updated.getEmail());
     }
 
-    @GetMapping("/id")
-    public UserDTO deleteUser(@PathVariable Long id){
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deleteUser(@PathVariable Long id){
         userService.deleteById(id);
+        return ResponseEntity.ok("Utilisateur supprimé avec succès");
     }
 }
