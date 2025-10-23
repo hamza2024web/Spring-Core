@@ -1,9 +1,11 @@
 package com.spring.controller;
 
+import com.spring.dto.LoginRequest;
 import com.spring.dto.UserDTO;
 import com.spring.entity.User;
 import com.spring.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -48,4 +50,5 @@ public class UserController {
         userService.deleteById(id);
         return ResponseEntity.ok("Utilisateur supprimé avec succès");
     }
+
 }

@@ -4,7 +4,10 @@ import com.spring.dto.UserDTO;
 import com.spring.entity.User;
 import com.spring.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -12,7 +15,7 @@ import java.util.List;
 public class UserService {
 
     private final UserRepository userRepository;
-
+    private final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
     @Autowired
     public UserService(UserRepository userRepository){
         this.userRepository = userRepository;
@@ -23,6 +26,7 @@ public class UserService {
     }
 
     public User save(User user){
+        user.setPassword(encoder.encode(user.getPassword()));
         return userRepository.save(user);
     }
 
@@ -43,5 +47,13 @@ public class UserService {
 
     public void deleteById(Long id){
         userRepository.deleteById(id);
+    }
+
+    public User authenticate(String email, String password) {
+        User user = userRepository.findByEmail(email).orElseThrow(() -> new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Email ou mot de passe incorrect"));
+        if (!encoder.matches(password, user.getPassword())) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Email ou mot de passe incorrect");
+        }
+        return user;
     }
 }
