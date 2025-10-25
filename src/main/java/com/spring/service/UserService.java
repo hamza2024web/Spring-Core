@@ -60,15 +60,4 @@ public class UserService {
         return user;
     }
 
-    public Page<UserDTO> getAllActiveUsers(int page , int size){
-        Pageable pageable = PageRequest.of(page,size);
-        Page<User> userPage = userRepository.findByActiveTrue(pageable);
-        return userPage.map(user -> new UserDTO (
-                user.getId(),
-                user.getName(),
-                user.getEmail(),
-                user.getRole(),
-                user.getActive()
-        ));
-    }
 }
